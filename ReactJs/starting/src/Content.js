@@ -1,38 +1,9 @@
-import { useState } from "react";
+// import { useState } from "react";
 import "./Content.css";
 import { AiFillDelete } from "react-icons/ai";
 
-const Content = () => {
+const Content = ({ handleCheck, handleDelete, items }) => {
   // const [name, setName] = useState("name");
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      checked: false,
-      item: "item-1",
-    },
-    {
-      id: 2,
-      checked: false,
-      item: "item-2",
-    },
-    {
-      id: 3,
-      checked: false,
-      item: "item-3",
-    },
-  ]);
-
-  const handleCheck = (id) => {
-    const changedList = items.map((item) =>
-      item.id === id ? { ...item, checked: !item.checked } : item
-    );
-    setItems(changedList);
-  };
-
-  const handleDelete = (id) => {
-    const afterDelete = items.filter((item) => item.id !== id);
-    setItems(afterDelete);
-  };
   // const nameArray = ["Ritvik", "Saran", "Karthik"];
   // const chooseName = () => {
   //   setName(nameArray[Math.floor(Math.random() * 3)]);
