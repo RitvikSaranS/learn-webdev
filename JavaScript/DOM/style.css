@@ -1,0 +1,19 @@
+#div1 {
+    width: 500px;
+    height: 500px;
+    background-color: tomato;
+}
+#div2 {
+    width: 200px;
+    height: 200px;
+    background-color: blue;
+}
+#div3 {
+    width: 100px;
+    height: 100px;
+    background-color: yellow;
+}
+
+#div1, #div2, #div3 {
+    padding: 10px;
+}
