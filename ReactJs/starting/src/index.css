@@ -99,3 +99,9 @@ input.additem {
   width: 18rem;
   margin: 0 5px;
 }
+
+input#search {
+  height: 2rem;
+  width: 18rem;
+  margin: 10px 5px 0px;
+}

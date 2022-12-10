@@ -2,6 +2,7 @@ import Header from "./Header";
 import AddItem from "./AddItem";
 import Content from "./Content";
 import Footer from "./Footer";
+import SearchItem from "./SearchItem";
 import { useState } from "react";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     JSON.parse(localStorage.getItem("shoppinglist"))
   );
   const [inputItem, setInputItem] = useState("");
+  const [search, setSearch] = useState("");
 
   const setAndSaveItems = (newList) => {
     setItems(newList);
@@ -48,12 +50,14 @@ function App() {
   return (
     <div className="App" style={appStyle}>
       <Header title="list" />
-
+      <SearchItem search={search} setSearch={setSearch} />
       {/* passing down the props to content */}
       <Content
         handleCheck={handleCheck}
         handleDelete={handleDelete}
-        items={items}
+        items={items.filter((item) =>
+          item.item.toLowerCase().includes(search.toLowerCase())
+        )}
       />
       <AddItem
         inputItem={inputItem}
