@@ -83,3 +83,19 @@ ul li::before {
   color: red;
   outline: none;
 }
+
+
+button.additem {
+  height: 2rem;
+  width: 2rem;
+}
+
+button.additem:hover,  button.additem:focus{
+  background-color: #80FF66;
+}
+
+input.additem {
+  height: 2rem;
+  width: 18rem;
+  margin: 0 5px;
+}
