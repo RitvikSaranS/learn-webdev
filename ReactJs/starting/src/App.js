@@ -14,6 +14,7 @@ function App() {
   const [inputItem, setInputItem] = useState("");
   const [search, setSearch] = useState("");
   const [fetchError, setFetchError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // load on page rendering
   // useEffect(() => {
@@ -26,13 +27,16 @@ function App() {
         const response = await fetch(FETCH_URL);
         if (!response.ok) throw Error("Didn't recieve data");
         const listItems = await response.json();
-        console.log(listItems);
         setItems(listItems);
       } catch (err) {
         setFetchError(err.stack);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchItems();
+    setTimeout(() => {
+      fetchItems();
+    }, 2000);
   }, []);
 
   const addItem = (newItem) => {
@@ -65,19 +69,24 @@ function App() {
   return (
     <>
       {fetchError ? (
-        <p>Server Error</p>
+        <h1>Server error : Sorry for the inconvenience</h1>
       ) : (
         <div className="App" style={appStyle}>
           <Header title="list" />
           <SearchItem search={search} setSearch={setSearch} />
           {/* passing down the props to content */}
-          <Content
-            handleCheck={handleCheck}
-            handleDelete={handleDelete}
-            items={items.filter((item) =>
-              item.item.toLowerCase().includes(search.toLowerCase())
-            )}
-          />
+          {loading && (
+            <p style={{ margin: "1rem", color: "red" }}>Items are loading</p>
+          )}
+          {!loading && (
+            <Content
+              handleCheck={handleCheck}
+              handleDelete={handleDelete}
+              items={items.filter((item) =>
+                item.item.toLowerCase().includes(search.toLowerCase())
+              )}
+            />
+          )}
           <AddItem
             inputItem={inputItem}
             setInputItem={setInputItem}
