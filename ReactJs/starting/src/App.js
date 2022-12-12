@@ -4,12 +4,14 @@ import Content from "./Content";
 import Footer from "./Footer";
 import SearchItem from "./SearchItem";
 import { useState, useEffect } from "react";
+import apiRequest from "./apiRequest";
 
 function App() {
   const appStyle = {
     backgroundColor: "#7FFFD4",
   };
   const FETCH_URL = "http://localhost:4000/items";
+
   const [items, setItems] = useState([]);
   const [inputItem, setInputItem] = useState("");
   const [search, setSearch] = useState("");
@@ -39,24 +41,56 @@ function App() {
     }, 2000);
   }, []);
 
-  const addItem = (newItem) => {
+  const addItem = async (newItem) => {
     const nextId = items.length ? items[items.length - 1].id + 1 : 1;
     const myNewItem = { id: nextId, checked: false, item: `${newItem}` };
     const savedList = [...items, myNewItem];
     // items.concat([{ id: nextId, checked: false, item: `${inputItem}` }])
     setItems(savedList);
+
+    const postOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(myNewItem),
+    };
+
+    const result = await apiRequest(FETCH_URL, postOptions);
+    if (result) setFetchError(result);
   };
 
-  const handleCheck = (id) => {
+  const handleCheck = async (id) => {
     const changedList = items.map((item) =>
       item.id === id ? { ...item, checked: !item.checked } : item
     );
     setItems(changedList);
+
+    const checkedItem = changedList.filter((item) => id === item.id);
+    const updateOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ checked: checkedItem[0].checked }),
+    };
+
+    const reqUrl = `${FETCH_URL}/${id}`;
+    const result = await apiRequest(reqUrl, updateOptions);
+    if (result) setFetchError(result);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const afterDelete = items.filter((item) => item.id !== id);
     setItems(afterDelete);
+
+    const deleteOptions = {
+      method: "DELETE",
+    };
+
+    const reqUrl = `${FETCH_URL}/${id}`;
+    const result = await apiRequest(reqUrl, deleteOptions);
+    if (result) setFetchError(result);
   };
 
   const handleSubmit = (e) => {
