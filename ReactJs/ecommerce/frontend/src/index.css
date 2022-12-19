@@ -33,3 +33,7 @@ div.product img {
 div.product.productInfo {
   padding: 1rem;
 }
+
+.img-large {
+  max-width: 100%;
+}
