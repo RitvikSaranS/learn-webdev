@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react";
 import axios from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Product from "./Product";
+import Product from "../components/Product";
 
 const reducer = (state, action) => {
   switch (action.type) {
