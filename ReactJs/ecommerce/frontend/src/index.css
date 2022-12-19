@@ -7,20 +7,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-header {
-  background-color: blueviolet;
-  padding: 1rem;
-}
-header a {
-  color: #f0fff0;
-  font-size: larger;
-  font-weight: bolder;
-  letter-spacing: 2px;
-  text-decoration: none;
+.site-container {
+  min-height: 100vh;
 }
 
 main {
-  padding: 1rem;
+  flex: 1;
 }
 div.products {
   display: flex;
